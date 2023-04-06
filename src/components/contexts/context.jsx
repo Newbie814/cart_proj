@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import reducer from '../../reducers/reducer';
 import cartItems from '../../data';
+import { getCartTotal } from '../../utilities/utils';
 
 import {
   CLEAR_CART,
@@ -18,8 +19,14 @@ const initialState = {
   cart: new Map(cartItems.map((item) => [item.id, item])),
 };
 
+//
+// ----------- RETURN FUNCTION -----------------
+//
+
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const { totalAmount, totalCost } = getCartTotal(state.cart);
 
   const clearCart = () => {
     dispatch({ type: CLEAR_CART });
@@ -45,6 +52,8 @@ export const AppProvider = ({ children }) => {
         removeItem,
         increaseCartItem,
         decreaseCartItem,
+        totalAmount,
+        totalCost,
       }}
     >
       {children}
