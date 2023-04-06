@@ -1,5 +1,7 @@
 import CartItem from './CartItem';
-import cartItems from './data';
+import cartItems from '../data';
+import { useGlobalContext } from './contexts/context';
+
 const CartContainer = () => {
   const cartArray = [...cartItems];
 
